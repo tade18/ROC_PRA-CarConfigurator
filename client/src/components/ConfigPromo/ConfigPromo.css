@@ -1,4 +1,4 @@
-button {
+#configPromo-button {
     outline: none;
     cursor: pointer;
     border: none;
@@ -17,18 +17,18 @@ button {
     color: ghostwhite;
    }
    
-   button span {
+   #configPromo-button span {
     position: relative;
     z-index: 10;
     transition: color 0.4s;
    }
    
-   button:hover span {
+   #configPromo-button:hover span {
     color: black;
    }
    
-   button::before,
-   button::after {
+   #configPromo-button::before,
+   #configPromo-button::after {
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@ button {
     z-index: 0;
    }
    
-   button::before {
+   #configPromo-button::before {
     content: "";
     background: #000;
     width: 120%;
@@ -46,6 +46,6 @@ button {
     transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
    }
    
-   button:hover::before {
+   #configPromo-button:hover::before {
     transform: translate3d(100%, 0, 0);
    }

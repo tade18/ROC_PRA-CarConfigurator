@@ -21,7 +21,7 @@ export default function Footer() {
 
                 <div className="text-center md:text-right">
                     <ul className="space-y-2">
-                    <li><a href="#contact" className="hover:underline">Kontaktujte nás</a></li>
+                    <li><a href="/contact" className="hover:underline">Kontaktujte nás</a></li>
                     <li><a href="#location" className="hover:underline">Kde nás naleznete?</a></li>
                     </ul>
                 </div>
