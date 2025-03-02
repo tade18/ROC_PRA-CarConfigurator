@@ -19,7 +19,7 @@ export default function Header() {
 
   return (
     <>
-      <div className={`fixed top-0 left-0 w-full z-50 transition-all duration-600 ${isScrolled ? "h-0 opacity-0" : "h-auto opacity-100"}`}>
+      <div className={`fixed top-0 left-0 w-full z-50 transition-all relative duration-600 ${isScrolled ? "h-0 opacity-0" : "h-auto opacity-100"}`}>
         <div className="bg-black text-white flex items-center justify-between px-4 py-3">
           <div className={`transition-all duration-300 ${isScrolled ? "w-20 h-20" : "w-12 h-12"}`}>
             <Link to={"/"}>

@@ -1,47 +1,72 @@
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { createModel } from "../../models/model";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 export default function ModelCreateForm() {
   const [formData, setFormData] = useState({
     name: "",
     basePrice: "",
-    parameters: []
+    bodyType: "",
+    colors: [],
+    engines: [],
+    extras: []
   });
 
-  const [newParam, setNewParam] = useState("");
-  const [newOption, setNewOption] = useState({ name: "", price: "", images: {} });
-
+  const [newColor, setNewColor] = useState({ name: "", price: "", rims: [] });
+  const [newRim, setNewRim] = useState({ name: "", price: "", image: "" });
+  const [newEngine, setNewEngine] = useState({ name: "", price: "", power: "", emissions: "", image: "" });
+  const [newExtra, setNewExtra] = useState({ name: "", price: "", image: "" });
   const navigate = useNavigate();
 
-  // Přidání nového parametru (např. color, wheels, engine)
-  const addParameter = () => {
-    if (!newParam) return;
-    setFormData({
-      ...formData,
-      parameters: [...formData.parameters, { name: newParam, options: [] }]
-    });
-    setNewParam("");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Přidání nové možnosti (např. barva "Red" do parametru "color")
-  const addOption = (paramIndex) => {
-    if (!newOption.name || !newOption.price) return;
-    const updatedParams = [...formData.parameters];
-    updatedParams[paramIndex].options.push({ ...newOption });
-    setFormData({ ...formData, parameters: updatedParams });
-    setNewOption({ name: "", price: "", images: {} });
+  const handleColorChange = (e) => {
+    setNewColor({ ...newColor, [e.target.name]: e.target.value });
   };
 
-  // Odeslání dat na backend
-  const handleSubmit = async (e) => {
+  const handleRimChange = (e) => {
+    setNewRim({ ...newRim, [e.target.name]: e.target.value });
+  };
+
+  const handleEngineChange = (e) => {
+    setNewEngine({ ...newEngine, [e.target.name]: e.target.value });
+  };
+
+  const handleExtraChange = (e) => {
+    setNewExtra({ ...newExtra, [e.target.name]: e.target.value });
+  };
+
+  const addColor = () => {
+    setFormData({ ...formData, colors: [...formData.colors, newColor] });
+    setNewColor({ name: "", price: "", rims: [] });
+  };
+
+  const addRim = () => {
+    setNewColor({ ...newColor, rims: [...newColor.rims, newRim] });
+    setNewRim({ name: "", price: "", image: "" });
+  };
+
+  const addEngine = () => {
+    setFormData({ ...formData, engines: [...formData.engines, newEngine] });
+    setNewEngine({ name: "", price: "", power: "", emissions: "", image: "" });
+  };
+
+  const addExtra = () => {
+    setFormData({ ...formData, extras: [...formData.extras, newExtra] });
+    setNewExtra({ name: "", price: "", image: "" });
+  };
+
+  const handlePost = async (e) => {
     e.preventDefault();
     const response = await createModel(formData);
-    if (response.status === 201) {
-      navigate(`/createdmodel/${response.payload._id}`);
+    if (response.status === 200) {
+      navigate(`/created-car/${response.payload._id}`);
     } else {
-      alert(response.msg);
+      alert("Something went wrong");
     }
   };
 
@@ -49,205 +74,45 @@ export default function ModelCreateForm() {
     <>
     <Header />
     <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-      <h1>Přidat model</h1>
-      <form className="bg-yellow-300 p-6 rounded-lg shadow-lg max-w-md w-full" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Model Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-        <input
-          type="number"
-          name="basePrice"
-          placeholder="Base Price"
-          value={formData.basePrice}
-          onChange={(e) => setFormData({ ...formData, basePrice: e.target.value })}
-          required
-        />
 
-        <h3>Add Parameters</h3>
-        <input
-          type="text"
-          placeholder="Parameter name (e.g., color, wheels, engine)"
-          value={newParam}
-          onChange={(e) => setNewParam(e.target.value)}
-        />
-        <button type="button" onClick={addParameter}>Přidat vlastnost</button>
-
-        <h3>Parameters</h3>
-        {formData.parameters.map((param, index) => (
-          <div key={index}>
-            <h4>{param.name}</h4>
-            <input
-              type="text"
-              placeholder="Option Name"
-              value={newOption.name}
-              onChange={(e) => setNewOption({ ...newOption, name: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              value={newOption.price}
-              onChange={(e) => setNewOption({ ...newOption, price: Number(e.target.value) })}
-            />
-            <button type="button" onClick={() => addOption(index)}>Přidat možnost</button>
-
-            <ul>
-              {param.options.map((option, optIndex) => (
-                <li key={optIndex}>
-                  {option.name} - {option.price}Kč
-                </li>
-              ))}
-            </ul>
+    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl">
+      <h1 className="text-2xl font-bold mb-6 text-center">Create Model</h1>
+      <form onSubmit={handlePost} className="space-y-6">
+        <input className="block w-full p-2 border rounded" type="text" name="name" placeholder="Model Name" value={formData.name} onChange={handleChange} required />
+        <input className="block w-full p-2 border rounded" type="number" name="basePrice" placeholder="Base Price" value={formData.basePrice} onChange={handleChange} required />
+        <input className="block w-full p-2 border rounded" type="text" name="bodyType" placeholder="Body Type" value={formData.bodyType} onChange={handleChange} required />
+        
+        <div>
+          <h3 className="font-semibold">Add Color</h3>
+          <div className="grid grid-cols-2 gap-4">
+            <input className="p-2 border rounded" type="text" name="name" placeholder="Color Name" value={newColor.name} onChange={handleColorChange} />
+            <input className="p-2 border rounded" type="number" name="price" placeholder="Color Price" value={newColor.price} onChange={handleColorChange} />
           </div>
-        ))}
+          <button type="button" onClick={addColor} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Add Color</button>
+        </div>
 
-        <button type='submit' className='px-6 py-2 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Přidat model do konfigurátoru</span></button>
+        <div>
+          <h4 className="font-semibold">Add Rim to Color</h4>
+          <div className="grid grid-cols-3 gap-4">
+            <input className="p-2 border rounded" type="text" name="name" placeholder="Rim Name" value={newRim.name} onChange={handleRimChange} />
+            <input className="p-2 border rounded" type="number" name="price" placeholder="Rim Price" value={newRim.price} onChange={handleRimChange} />
+            <input className="p-2 border rounded" type="text" name="image" placeholder="Rim Image URL" value={newRim.image} onChange={handleRimChange} />
+          </div>
+          <button type="button" onClick={addRim} className="mt-2 bg-green-500 text-white px-4 py-2 rounded">Add Rim</button>
+        </div>
+
+        <h3>Add Extra</h3>
+        <input type="text" name="name" placeholder="Extra Name" value={newExtra.name} onChange={handleExtraChange} />
+        <input type="number" name="price" placeholder="Extra Price" value={newExtra.price} onChange={handleExtraChange} />
+        <input type="text" name="image" placeholder="Extra Image URL" value={newExtra.image} onChange={handleExtraChange} />
+        <button type="button" onClick={addExtra}>Add Extra</button>
+
+        <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded">Create Model</button>
       </form>
+      <Link to="/" className="block text-center text-blue-500 mt-4">Go back</Link>
     </div>
+    </div>
+    <Footer />
     </>
   );
 }
-
-
-/*import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { createModel } from "../../models/model";
-import Header from "../../components/Header/Header";
-
-export default function ModelCreateForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    basePrice: "",
-    parameters: [],
-  });
-
-  const [newParam, setNewParam] = useState({ name: "", options: [] });
-  const [newOption, setNewOption] = useState({ name: "", price: "", images: {} });
-  const [info, setInfo] = useState(null);
-  const navigate = useNavigate();
-
-  const postForm = async () => {
-    const model = await createModel(formData);
-    if (model.status === 201) {
-      redirectToSuccessPage(model.payload._id);
-    } else {
-      setInfo(model.msg);
-    }
-  }
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handlePost = (e) => {
-    e.preventDefault();
-    postForm();
-  };
-
-  const redirectToSuccessPage = (id) => {
-    return navigate(`/createdmodel/${id}`)
-  }
-
-  const handleParamChange = (e) => {
-    setNewParam({ ...newParam, name: e.target.value });
-  };
-
-  
-
-  const addParameter = () => {
-    if (!newParam) return;
-    setFormData({
-      ...formData,
-      parameters: [...formData.parameters, { name: newParam, options: [] }]
-    });
-    setNewParam("");
-  };
-
-  const addOption = (paramIndex) => {
-    if (!newOption.name || !newOption.price) return;
-    const updatedParams = [...formData.parameters];
-    updatedParams[paramIndex].options.push({ ...newOption });
-    setFormData({ ...formData, parameters: updatedParams });
-    setNewOption({ name: "", price: "", images: {} });
-  };
-
-  return (
-    <>
-    <Header />
-    <div className="flex flex-col justify-center items-center min-h-screen bg-yellow-100">
-
-      <h1>Create Model</h1>
-      {info && <p style={{ color: "red" }}>{info}</p>}
-        <form className="bg-yellow-300 p-6 rounded-lg shadow-lg max-w-md w-full" onSubmit={handlePost}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Model Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-        />
-        <input
-          type="number"
-          name="basePrice"
-          placeholder="Base Price"
-          value={formData.basePrice}
-          onChange={(e) => setFormData({ ...formData, basePrice: e.target.value })}
-          required
-        />
-
-        <h3>Add Parameters</h3>
-        <input
-          type="text"
-          placeholder="Parameter name (e.g., color, wheels, engine)"
-          value={newParam}
-          onChange={(e) => setNewParam(e.target.value)}
-        />
-        <button type="button" onClick={addParameter}>Add Parameter</button>
-
-        <h3>Parameters</h3>
-        {formData.parameters.map((param, index) => (
-          <div key={index}>
-            <h4>{param.name}</h4>
-            <input
-              type="text"
-              placeholder="Option Name"
-              value={newOption.name}
-              onChange={(e) => setNewOption({ ...newOption, name: e.target.value })}
-            />
-            <input
-              type="number"
-              placeholder="Price"
-              value={newOption.price}
-              onChange={(e) => setNewOption({ ...newOption, price: Number(e.target.value) })}
-            />
-            <button type="button" onClick={() => addOption(index)}>Add Option</button>
-
-            <ul>
-              {param.options.map((option, optIndex) => (
-                <li key={optIndex}>
-                  {option.name} - ${option.price}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-
-        <button type="submit">Create Model</button>
-      </form>
-
-      <Link to={"/"}>
-        <p>Go back</p>
-      </Link>
-
-
-    </div>
-    </>
-  );
-}
-*/
-

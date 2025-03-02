@@ -3,6 +3,7 @@ import ModelLink from "./ModelLink";
 import { useState, useEffect } from "react";
 import { getModels } from "../../models/model";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 export default function CatList() {
   const [models, setModels] = useState();
@@ -47,11 +48,11 @@ export default function CatList() {
           <ModelLink key={index} {...model} />
         ))
       }
-    </div>
-      
       <Link to={"/"}>
         <p>Zpět</p>
       </Link>
+    </div>
+      <Footer />
     </>
   );
 }

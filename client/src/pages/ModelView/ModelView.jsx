@@ -2,6 +2,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { getModel, deleteModel } from "../../models/model";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 
 export default function ModelView() {
   const { id } = useParams();
@@ -79,6 +80,7 @@ export default function ModelView() {
         <p>Go back</p>
       </Link>
       </div>
+      <Footer />
     </>
   );
 }
