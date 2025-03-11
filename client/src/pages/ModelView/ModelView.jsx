@@ -1,5 +1,5 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import { getModel, deleteModel } from "../../models/model";
+import { getModelById, deleteModel } from "../../models/model";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -13,7 +13,7 @@ export default function ModelView() {
   const navigate = useNavigate();
 
   const load = async () => {
-    const data = await getModel(id);
+    const data = await getModelById(id);
     if (data.status === 500 || data.status === 404) return setLoaded(null);
     if (data.status === 200) {
       setModel(data.payload);
@@ -66,7 +66,6 @@ export default function ModelView() {
       <h1>Model view</h1>
       <p>{id}</p>
       <p>{model.name}</p>
-      <p>{model.legs}</p>
       <p>{model.color}</p>
       <form>
         <input type="text" placeholder={model.name} onChange={handleChange} />

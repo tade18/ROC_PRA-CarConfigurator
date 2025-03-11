@@ -10,7 +10,7 @@ export default function Footer() {
                 <div className="text-center md:text-left mb-6 md:mb-0">
                     <ul className="space-y-2">
                     <Link><li><div href="#home" className="hover:underline">Domů.</div></li></Link>
-                    <Link><li><div href="#home" className="hover:underline">Modely.</div></li></Link>
+                    <Link to={"/models"}><li><div className="hover:underline">Modely.</div></li></Link>
                     <Link to={"/Configurator"}><li><div href="#home" className="hover:underline">Konfigurátor.</div></li></Link>
                     </ul>
                 </div>
@@ -21,8 +21,9 @@ export default function Footer() {
 
                 <div className="text-center md:text-right">
                     <ul className="space-y-2">
-                    <li><a href="/contact" className="hover:underline">Kontaktujte nás</a></li>
+                    <li><a href="/contact" className="hover:underline">Kontaktujte nás.</a></li>
                     <li><a href="#location" className="hover:underline">Kde nás naleznete?</a></li>
+                    <li><a href="/loginform" className="hover:underline">Admin.</a></li>
                     </ul>
                 </div>
                 </div>

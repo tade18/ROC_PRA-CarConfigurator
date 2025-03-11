@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const RimSchema = new mongoose.Schema({
   name: { type: String, required: true },
@@ -35,4 +35,4 @@ const ModelSchema = new mongoose.Schema({
   extras: { type: [ExtraSchema], required: true }
 });
 
-export default mongoose.model("Model", ModelSchema);
+module.exports = mongoose.model("Model", ModelSchema);

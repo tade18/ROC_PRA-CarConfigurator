@@ -1,4 +1,4 @@
-export const getModels = async () => {
+export const getAllModels = async () => {
     const req = await fetch("http://localhost:3000/models", {
       headers: {
         Accept: "application/json",
@@ -13,7 +13,7 @@ export const getModels = async () => {
       msg: data.msg,
     };
   };
-  export const getModel = async (id) => {
+  export const getModelById = async (id) => {
     const req = await fetch(`http://localhost:3000/models/${id}`, {
       headers: {
         Accept: "application/json",

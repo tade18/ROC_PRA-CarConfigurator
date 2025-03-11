@@ -1,6 +1,6 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { updateModel, getModel } from "../../models/model";
+import { updateModel, getModelById } from "../../models/model";
 
 export default function ModelUpdateForm() {
   const { id } = useParams();
@@ -18,7 +18,7 @@ export default function ModelUpdateForm() {
 
   useEffect(() => {
     const load = async () => {
-      const data = await getModel(id);
+      const data = await getModelById(id);
       if (data.status === 500 || data.status === 404) {
         setLoaded(null);
       } else if (data.status === 200) {

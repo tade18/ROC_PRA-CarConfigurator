@@ -1,6 +1,6 @@
-import Model from "../models/models.js";
+const Model = require("../models/models");
 
-export const createModel = async (req, res) => {
+exports.createModel = async (req, res) => {
   try {
     const { name, basePrice, bodyType, colors, engines, extras } = req.body;
 
@@ -24,7 +24,7 @@ export const createModel = async (req, res) => {
   }
 };
 
-export const getAllModels = async (req, res) => {
+exports.getAllModels = async (req, res) => {
   try {
     const result = await Model.find();
     if (result && result.length !== 0) {
@@ -39,7 +39,7 @@ export const getAllModels = async (req, res) => {
   }
 };
 
-export const getModelById = async (req, res) => {
+exports.getModelById = async (req, res) => {
   try {
     const result = await Model.findById(req.params.id);
     if (result) {
@@ -54,7 +54,7 @@ export const getModelById = async (req, res) => {
   }
 };
 
-export const updateModel = async (req, res) => {
+exports.updateModel = async (req, res) => {
   try {
     const updatedModel = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
@@ -66,7 +66,7 @@ export const updateModel = async (req, res) => {
   }
 };
 
-export const deleteModel = async (req, res) => {
+exports.deleteModel = async (req, res) => {
   try {
     const deletedModel = await Model.findByIdAndDelete(req.params.id);
     if (!deletedModel) return res.status(404).json({ message: "Model not found" });
