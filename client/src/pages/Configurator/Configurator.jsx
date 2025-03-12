@@ -60,30 +60,36 @@ export default function Configurator() {
     <>
       <Header />
       <div className="bg-yellow-100 min-h-screen p-4">
-        <h1 className="text-xl text-center">{model.name} Configurator</h1>
+        <h1 className="text-xl text-center">{model.name}</h1>
         <div>
-          <h2>Colors</h2>
-          {model.colors.map((color, index) => (
-            <div key={index}>
-              <button onClick={() => selectColor(color)}>{color.name} - {color.price} Kč</button>
-              {selected.color === color && color.rims.map((rim, i) => (
-                <button key={i} onClick={() => selectRim(rim)}>{rim.name} - {rim.price} Kč</button>
-              ))}
-            </div>
-          ))}
-        </div>
-        <div>
-          <h2>Engines</h2>
+        
+        <div className="flex justify-between items-center bg-white p-4 rounded shadow mb-2">
+            <h2>Zvolte barvu</h2>
+            {model.colors.map((color, index) => (
+              <div key={index}>
+                <button onClick={() => selectColor(color)}>{color.name} - {color.price} Kč</button>
+                {selected.color === color && color.rims.map((rim, i) => (
+                  <button key={i} onClick={() => selectRim(rim)}>{rim.name} - {rim.price} Kč</button>
+                ))}
+              </div>
+            ))}
+          </div>
+
+        <div className="flex justify-between items-center bg-white p-4 rounded shadow mb-2">
+          <h2>Zvolte motorizaci</h2>
           {model.engines.map((engine, index) => (
             <button key={index} onClick={() => selectEngine(engine)}>{engine.name} - {engine.price} Kč</button>
           ))}
         </div>
-        <div>
-          <h2>Extras</h2>
+        </div>
+        
+        <div className="flex justify-between items-center bg-white p-4 rounded shadow mb-2">
+          <h2>Přidat doplňkovou výbavu</h2>
           {model.extras.map((extra, index) => (
             <button key={index} onClick={() => toggleExtra(extra)}>{extra.name} - {extra.price} Kč</button>
           ))}
         </div>
+
         <h3>Total Price: {model.basePrice + selected.totalPrice} Kč</h3>
       </div>
       <Footer />

@@ -4,7 +4,7 @@ export default function ModelLink(props) {
    
     return (
         <>
-            <Link to={`/model/${props._id}`}>
+            <Link to={`/configurator/${props._id}`}>
                 <p>{props.name}</p>
             </Link>
         </>

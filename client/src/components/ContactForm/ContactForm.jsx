@@ -12,7 +12,7 @@ export default function ContactForm() {
   return (
     <>
       <div className="flex justify-center items-center min-h-screen bg-yellow-100">
-      <form className="bg-yellow-300 p-6 rounded-lg shadow-lg max-w-md w-full" onSubmit={sendMail}>
+      <form className="bg-yellow-300 p-6 rounded-lg shadow-lg w-1/2" onSubmit={sendMail}>
 
         <h2 className="text-2xl font-bold mb-4 text-black">
           Neváhejte se nás zeptat..

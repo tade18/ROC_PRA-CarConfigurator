@@ -9,6 +9,7 @@ import ModelView from "./ModelView/ModelView";
 import ModelList from "./ModelList/ModelList";
 import CreatedModel from "./ModelCreateForm/CreatedModel";
 import LoginForm from './LoginForm/LoginForm';
+import AdminPage from './AdminPage/AdminPage';
 
 export default function AppRoutes() {
   return (
@@ -24,6 +25,7 @@ export default function AppRoutes() {
                 <Route path="/models" element={<ModelList />} />
                 <Route path="/createdmodel/:id" element={<CreatedModel />} />
                 <Route path="/loginform" element={<LoginForm />} />
+                <Route path='/adminpage' element={<AdminPage />}/>
             </Routes>
         </BrowserRouter>
     </>

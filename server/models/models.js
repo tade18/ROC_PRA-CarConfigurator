@@ -21,9 +21,9 @@ const EngineSchema = new mongoose.Schema({
 });
 
 const ExtraSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  price: { type: Number, required: true },
-  image: { type: String, required: true }
+  name: { type: String, required: false },
+  price: { type: Number, required: false },
+  image: { type: String, required: false }
 });
 
 const ModelSchema = new mongoose.Schema({
@@ -32,7 +32,7 @@ const ModelSchema = new mongoose.Schema({
   bodyType: { type: String, required: true },
   colors: { type: [ColorSchema], required: true },
   engines: { type: [EngineSchema], required: true },
-  extras: { type: [ExtraSchema], required: true }
+  extras: { type: [ExtraSchema], required: false }
 });
 
 module.exports = mongoose.model("Model", ModelSchema);

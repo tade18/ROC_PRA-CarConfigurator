@@ -16,7 +16,7 @@ export default function Footer() {
                 </div>
 
                 <div className="flex justify-center mb-6 md:mb-0">
-                    <img src={'./src/img/logo.png'} alt="Logo" className="h-12"/>
+                    <img src={'../public/logo.png'} alt="Logo" className="h-12"/>
                 </div>
 
                 <div className="text-center md:text-right">
