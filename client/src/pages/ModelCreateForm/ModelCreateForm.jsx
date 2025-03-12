@@ -63,8 +63,8 @@ export default function ModelCreateForm() {
   const handlePost = async (e) => {
     e.preventDefault();
     const response = await createModel(formData);
-    if (response.status === 200) {
-      navigate(`/created-car/${response.payload._id}`);
+    if (response.status === 201) {
+      navigate(`/createdcar/${response.payload._id}`);
     } else {
       alert("Something went wrong");
     }

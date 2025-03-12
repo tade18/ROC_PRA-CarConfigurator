@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import ModelLink from "./ModelLink";
+import ModelLink from "../ModelList/ModelLink";
 import { useState, useEffect } from "react";
 import { getAllModels, deleteModel } from "../../models/model";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 
-export default function ModelList() {
+export default function UserModelList() {
   const [models, setModels] = useState();
   const [isLoaded, setLoaded] = useState(false);
 
@@ -61,15 +61,9 @@ export default function ModelList() {
         {models.map((model, index) => (
           <div key={index} className="flex justify-between items-center w-full bg-white p-4 rounded shadow mb-2 flex-col md:flex-row">
             <ModelLink className="flex-6" {...model} />
-            
-            <button 
-              className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded" 
-              onClick={() => handleDelete(model._id)}>
-              Smazat model
-            </button>
           </div>
         ))}
-        <Link to={"/adminpage"}><button className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Návrat</span></button></Link>
+        <Link to={"/"}><button className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Návrat</span></button></Link>
         </div>
       </div>
       <Footer />

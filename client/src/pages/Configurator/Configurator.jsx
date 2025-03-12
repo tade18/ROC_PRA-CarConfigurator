@@ -90,7 +90,7 @@ export default function Configurator() {
           ))}
         </div>
 
-        <h3>Total Price: {model.basePrice + selected.totalPrice} Kč</h3>
+        <h3>Výsledná cena: {model.basePrice + selected.totalPrice} Kč</h3>
       </div>
       <Footer />
     </>

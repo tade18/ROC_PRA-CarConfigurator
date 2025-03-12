@@ -16,7 +16,7 @@ export default function AdminPage() {
                         <h3>Vytvořit konfiguraci</h3>
                     </div>
                 </Link>
-                <Link to={"/models"}>
+                <Link to={"/adminmodels"}>
                     <div className="flex justify-between items-center bg-white p-4 rounded shadow mb-2">
                         <h3>Správa konfigurací</h3>
                     </div>

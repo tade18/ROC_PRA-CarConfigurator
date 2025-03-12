@@ -10,6 +10,8 @@ import ModelList from "./ModelList/ModelList";
 import CreatedModel from "./ModelCreateForm/CreatedModel";
 import LoginForm from './LoginForm/LoginForm';
 import AdminPage from './AdminPage/AdminPage';
+import Error from './Error/Error';
+import UserModelList from './UserModelList/UserModelList';
 
 export default function AppRoutes() {
   return (
@@ -22,10 +24,12 @@ export default function AppRoutes() {
                 <Route path="/createmodel" element={<ModelCreateForm />} />
                 <Route path="/updatemodel/:id" element={<ModelUpdateForm />} />
                 <Route path="/model/:id" element={<ModelView />} />
-                <Route path="/models" element={<ModelList />} />
+                <Route path="/adminmodels" element={<ModelList />} />
+                <Route path="/models" element={<UserModelList />} />
                 <Route path="/createdmodel/:id" element={<CreatedModel />} />
                 <Route path="/loginform" element={<LoginForm />} />
                 <Route path='/adminpage' element={<AdminPage />}/>
+                <Route path='/*' element={<Error />}/>
             </Routes>
         </BrowserRouter>
     </>
