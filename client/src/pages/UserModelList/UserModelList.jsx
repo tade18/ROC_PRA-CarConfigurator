@@ -56,7 +56,7 @@ export default function UserModelList() {
     <>
     <Header />
       <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-        <div className="mx-auto w-1/2 p-8 bg-white shadow-lg rounded-xl">
+        <div className="mx-auto md:w-1/2 p-8 bg-white shadow-lg rounded-xl w-full">
         <h1 className="text-3xl mb-5">Modely</h1>
         {models.map((model, index) => (
           <div key={index} className="flex justify-between items-center w-full bg-white p-4 rounded shadow mb-2 flex-col md:flex-row">

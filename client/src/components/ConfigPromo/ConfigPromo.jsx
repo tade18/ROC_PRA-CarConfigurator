@@ -8,7 +8,7 @@ export default function ConfigPromo() {
       <div className="text-black text-xl font-bold xl:text-5xl ">
         Nový vůz z pohodlí domova.
       </div>
-      <Link to={"/Configurator"}><button className='px-6 py-2 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Objevit</span></button></Link>
+      <Link to={"/models"}><button className='px-6 py-2 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Objevit</span></button></Link>
     </div>
     </>
   )
