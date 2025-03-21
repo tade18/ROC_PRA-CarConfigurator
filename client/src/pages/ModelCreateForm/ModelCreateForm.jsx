@@ -16,7 +16,7 @@ export default function ModelCreateForm() {
 
   const [newColor, setNewColor] = useState({ name: "", price: "", rims: [] });
   const [newRim, setNewRim] = useState({ name: "", price: "", image: "" });
-  const [newEngine, setNewEngine] = useState({ name: "", price: "", power: "", emissions: "", image: "" });
+  const [newEngine, setNewEngine] = useState({ name: "", price: "", power: "", emissions: ""});
   const [newExtra, setNewExtra] = useState({ name: "", price: "", image: "" });
   const navigate = useNavigate();
 
@@ -52,7 +52,7 @@ export default function ModelCreateForm() {
 
   const addEngine = () => {
     setFormData({ ...formData, engines: [...formData.engines, newEngine] });
-    setNewEngine({ name: "", price: "", power: "", emissions: "", image: "" });
+    setNewEngine({ name: "", price: "", power: "", emissions: ""});
   };
 
   const addExtra = () => {
@@ -64,7 +64,7 @@ export default function ModelCreateForm() {
     e.preventDefault();
     const response = await createModel(formData);
     if (response.status === 201) {
-      navigate(`/createdcar/${response.payload._id}`);
+      navigate(`/createdmodel/${response.payload._id}`);
     } else {
       alert("Something went wrong");
     }
@@ -73,7 +73,7 @@ export default function ModelCreateForm() {
   return (
     <>
     <Header />
-    <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100 p-5">
+    <div className="flex justify-center flex-col items-center min-h-screen mt-20 bg-yellow-100 p-5">
     <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl">
 
       <h1 className="text-2xl font-bold mb-6 text-center">Vytvořit model pro konfigurátor</h1>
@@ -103,22 +103,21 @@ export default function ModelCreateForm() {
         </div>
 
         <h3>Přidat Motorizace</h3>
-        <input type="text" name="name" placeholder="Název" value={newEngine.name} onChange={handleEngineChange} />
-        <input type="number" name="power" placeholder="Výkon" value={newEngine.power} onChange={handleEngineChange} />
-        <input type="number" name="emissions" placeholder="Emise" value={newEngine.emissions} onChange={handleEngineChange} />
-        <input type="number" name="price" placeholder="Cena motorizace" value={newEngine.price} onChange={handleEngineChange} />
-        <input type="text" name="image" placeholder="Obrázek pro motor" value={newEngine.image} onChange={handleEngineChange} />
+        <input className="p-2 border rounded" type="text" name="name" placeholder="Název" value={newEngine.name} onChange={handleEngineChange} />
+        <input className="p-2 border rounded" type="number" name="power" placeholder="Výkon" value={newEngine.power} onChange={handleEngineChange} />
+        <input className="p-2 border rounded" type="number" name="emissions" placeholder="Emise" value={newEngine.emissions} onChange={handleEngineChange} />
+        <input className="p-2 border rounded" type="number" name="price" placeholder="Cena motorizace" value={newEngine.price} onChange={handleEngineChange} />
         <button type="button" className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition' onClick={addEngine}>Potvrdit motorizaci</button>
 
         <h3>Přidat Doplňkovou výbavu</h3>
-        <input type="text" name="name" placeholder="Extra Name" value={newExtra.name} onChange={handleExtraChange} />
-        <input type="number" name="price" placeholder="Extra Price" value={newExtra.price} onChange={handleExtraChange} />
-        <input type="text" name="image" placeholder="Extra Image URL" value={newExtra.image} onChange={handleExtraChange} />
+        <input className="p-2 border rounded" type="text" name="name" placeholder="Extra Name" value={newExtra.name} onChange={handleExtraChange} />
+        <input className="p-2 border rounded" type="number" name="price" placeholder="Extra Price" value={newExtra.price} onChange={handleExtraChange} />
+        <input className="p-2 border rounded" type="text" name="image" placeholder="Extra Image URL" value={newExtra.image} onChange={handleExtraChange} />
         <button type="button" onClick={addExtra} className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'>Potvrdit výbavu</button>
 
-        <button type="submit" className="w-full bg-blue-600 text-white py-3 rounded">Create Model</button>
+        <button type="submit" className="w-full bg-yellow-300 text-black py-3 rounded">Create Model</button>
       </form>
-      <Link to="/" className="block text-center text-blue-500 mt-4">Go back</Link>
+      <Link to="/"><div className="w-full text-yellow-300 bg-black text-black py-3 rounded text-center mt-3">Go back</div></Link>
     </div>
     </div>
     <Footer />

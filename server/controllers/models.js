@@ -1,14 +1,10 @@
 const Model = require("../models/models");
 
+//controller pro vytvoření modelu
 exports.createModel = async (req, res) => {
   try {
-    const { name, basePrice, bodyType, colors, engines, extras } = req.body;
-
-    if (!name || !basePrice || !bodyType || !colors || !engines) {
-      return res.status(400).json({ message: "Missing required fields" });
-    }
-
-    const newModel = new Model({
+    
+    const data = new Model({
       name: req.body.name,
       basePrice: req.body.basePrice,
       bodyType: req.body.bodyType,
@@ -17,13 +13,17 @@ exports.createModel = async (req, res) => {
       extras: req.body.extras || []
     });
 
-    await newModel.save();
-    res.status(201).json(newModel);
+    const result = await data.save();
+    if (result) return res.status(201).send({msg: "Model successfully created", payload: result})
+    res.status(500).send({
+      msg: "Model was not successfully created"
+  })
   } catch (error) {
-    res.status(500).json({ message: "Error creating car model", error: error.message });
+    res.status(500).send(error);
   }
 };
 
+//controller pro zobrazení všech modelů
 exports.getAllModels = async (req, res) => {
   try {
     const result = await Model.find();
@@ -39,40 +39,45 @@ exports.getAllModels = async (req, res) => {
   }
 };
 
+//získání jednoho konkrétního modelu
 exports.getModelById = async (req, res) => {
   try {
     const result = await Model.findById(req.params.id);
     if (result) {
-      return res.status(200).send({
-        msg: "Model found",
-        payload: result,
-      });
-    }
+      return res.status(200).send({msg: "Model found",payload: result});
     res.status(404).send({ msg: "Model not found" });
+    }
   } catch (error) {
     res.status(500).send(error);
   }
 };
 
+//controller pro upravení modelu
 exports.updateModel = async (req, res) => {
   try {
-    const updatedModel = await Model.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-    if (!updatedModel) return res.status(404).json({ message: "Model not found" });
-
-    res.status(200).json(updatedModel);
+    const data = new Model({
+      name: req.body.name,
+      basePrice: req.body.basePrice,
+      bodyType: req.body.bodyType,
+      colors: req.body.colors || [],
+      engines: req.body.engines || [],
+      extras: req.body.extras || []
+    });
+    const result = await Model.findByIdAndUpdate(req.params.id, data);
+    if (result) res.status(200).send({msg:"Model successfully updated", payload: result})
+    res.status(500).send({msg:"Model was not updated"})
   } catch (error) {
-    res.status(500).json({ message: "Error updating car model", error: error.message });
+    res.status(500).send(error);
   }
 };
 
+//controller pro odstranění modelu
 exports.deleteModel = async (req, res) => {
   try {
     const deletedModel = await Model.findByIdAndDelete(req.params.id);
-    if (!deletedModel) return res.status(404).json({ message: "Model not found" });
-
-    res.status(200).json({ message: "Model deleted successfully" });
+    if (result) return res.status(200).send({msg:"Model successfully deleted"})
+    res.status(500).send({msg:"Model was not deleted. Something went wrong!"})
   } catch (error) {
-    res.status(500).json({ message: "Error deleting car model", error: error.message });
+    res.status(500).send(error);
   }
 };

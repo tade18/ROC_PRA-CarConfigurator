@@ -47,14 +47,17 @@ export default function Configurator() {
     });
   };
 
+  //výběr kol
   const selectRim = (rim) => {
     setSelected({ ...selected, rim, totalPrice: selected.totalPrice + parseInt(rim.price) });
   };
 
+  //výběr motoru
   const selectEngine = (engine) => {
     setSelected({ ...selected, engine, totalPrice: selected.totalPrice + parseInt(engine.price) });
   };
 
+  //výběr doplňkové výbavy
   const toggleExtra = (extra) => {
     const isSelected = selected.extras.includes(extra);
     if (isSelected) {

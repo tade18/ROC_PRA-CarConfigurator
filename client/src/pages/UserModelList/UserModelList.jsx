@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import ModelLink from "../ModelList/ModelLink";
 import { useState, useEffect } from "react";
 import { getAllModels, deleteModel } from "../../models/model";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import ConfiguratorLink from "./ConfiguratorLink";
 
 export default function UserModelList() {
   const [models, setModels] = useState();
@@ -60,7 +60,7 @@ export default function UserModelList() {
         <h1 className="text-3xl mb-5">Modely</h1>
         {models.map((model, index) => (
           <div key={index} className="flex justify-between items-center w-full bg-white p-4 rounded shadow mb-2 flex-col md:flex-row">
-            <ModelLink className="flex-6" {...model} />
+            <ConfiguratorLink className="flex-6" {...model} />
           </div>
         ))}
         <Link to={"/"}><button className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Návrat</span></button></Link>

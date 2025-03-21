@@ -23,7 +23,7 @@ export default function Footer() {
                     <ul className="space-y-2">
                     <Link to={"/contact"}><li className="hover:underline">Kontaktujte nás.</li></Link>
                     <Link to={"/#"}><li className="hover:underline">Kde nás naleznete?</li></Link>
-                    <Link to={"/loginform"}><li className="hover:underline">Admin.</li></Link>
+                    <Link to={"/adminpage"}><li className="hover:underline">Admin.</li></Link>
                     </ul>
                 </div>
                 </div>

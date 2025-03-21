@@ -1,4 +1,4 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, redirect } from "react-router-dom";
 import { getModelById, deleteModel } from "../../models/model";
 import { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
@@ -8,7 +8,6 @@ export default function ModelView() {
   const { id } = useParams();
   const [model, setModel] = useState();
   const [isLoaded, setLoaded] = useState(false);
-  const [info, setInfo] = useState();
   const [formData, setFormData] = useState();
   const navigate = useNavigate();
 
@@ -29,17 +28,11 @@ export default function ModelView() {
     setFormData(e.target.value);
   }
 
-  const handleDelete = async (e) => {
-    e.preventDefault();
-    if (model.name === formData) {
-      const data = await deleteModel(id);
-      if (data.status === 200) {
-        navigate("/");
-      } else {
-        setInfo(data.msg);
-      }
-    } else {
-      setInfo("Wrong input!");
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Opravdu chcete smazat tento model?");
+    if (confirmDelete) {
+      await deleteModel(id);
+      load();
     }
   }
 
@@ -58,26 +51,28 @@ export default function ModelView() {
       </>
     )
   }
-
+  
   return (
     <>
     <Header />
-      <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-      <h1>Model view</h1>
-      <p>{id}</p>
-      <p>{model.name}</p>
-      <p>{model.color}</p>
-      <form>
-        <input type="text" placeholder={model.name} onChange={handleChange} />
-        <button onClick={handleDelete}>Delete</button>
-        <p>{info}</p>
-      </form>
+      <div className="flex justify-center items-center min-h-screen bg-yellow-100">
+      <ul>
+      <h1 className="text-4xl">Model view</h1>
+        <li>{id}</li>
+        <li>{model.name}</li>
+        <li>{model.color}</li>
+        <button 
+            className="bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded" 
+            onClick={() => handleDelete(model._id)}>
+            Smazat model
+        </button>
       <Link to={`/updatemodel/${id}`}>
-      <button className='px-6 py-2 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Upravit</span></button>
+      <button className='px-6 py-2 bg-blue-700 text-white font-bold rounded-md border-2k hover:bg-blue-900 transition'><span>Upravit</span></button>
       </Link>
-      <Link to={"/"}>
-        <p>Go back</p>
+      <Link to={`/adminmodels`}>
+      <button className='px-6 py-2 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Návrat</span></button>
       </Link>
+      </ul>
       </div>
       <Footer />
     </>
