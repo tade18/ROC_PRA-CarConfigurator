@@ -5,13 +5,16 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
+require("dotenv").config();
+const{ MONGO_URL } = process.env;
 mongoose
-.connect('')
+.connect(MONGO_URL)
 .then(() => console.log("Database connected"))
 .catch((err) => console.log(err));
 
 var indexRouter = require('./routes/index');
 var modelsRouter = require('./routes/models');
+const authRoutes = require("./routes/auth");
 
 var app = express();
 
@@ -28,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/models', modelsRouter);
+app.use("/api/auth", authRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -16,12 +16,11 @@ export default function UserModelList() {
       setModels(data.payload);
       setLoaded(true);
     }
-  }
+  };
 
   useEffect(() => {
     load();
   }, []);
-
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Opravdu chcete smazat tento model?");
@@ -29,19 +28,23 @@ export default function UserModelList() {
       await deleteModel(id);
       load();
     }
-  }
+  };
 
   if (isLoaded === null) {
     return (
       <>
-      <Header />
+        <Header />
         <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-        <div className="text-4xl">Modely nenalezeny</div>
-        <Link to={"/createmodel"}><button className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Vytvořit model</span></button></Link>
+          <div className="text-4xl">Modely nenalezeny</div>
+          <Link to={"/createmodel"}>
+            <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
+              <span>Vytvořit model</span>
+            </button>
+          </Link>
         </div>
-      <Footer />
+        <Footer />
       </>
-    )
+    );
   }
 
   if (!isLoaded) {
@@ -49,21 +52,47 @@ export default function UserModelList() {
       <>
         <p>Načítání modelů...</p>
       </>
-    )
+    );
   }
 
   return (
     <>
-    <Header />
+      <Header />
       <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
         <div className="mx-auto md:w-1/2 p-8 bg-white shadow-lg rounded-xl w-full">
-        <h1 className="text-3xl mb-5">Modely</h1>
-        {models.map((model, index) => (
-          <div key={index} className="flex justify-between items-center w-full bg-white p-4 rounded shadow mb-2 flex-col md:flex-row">
-            <ConfiguratorLink className="flex-6" {...model} />
+          <h1 className="text-3xl mb-5">Modely</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {models.map((model) => {
+              const image =
+                model.colors?.[0]?.rims?.[0]?.image ||
+                "/images/placeholder.png";
+
+              return (
+                <div
+                  key={model._id}
+                  className="bg-white rounded-xl shadow p-4 flex flex-col items-center transition hover:shadow-lg"
+                >
+                  <img
+                    src={image}
+                    alt={model.name}
+                    className="w-full h-48 object-cover rounded mb-4"
+                  />
+                  <div className="flex gap-2 mt-auto">
+                    <ConfiguratorLink className="flex-6" {...model}>
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        Detail
+                      </button>
+                    </ConfiguratorLink>
+                  </div>
+                </div>
+              );
+            })}
           </div>
-        ))}
-        <Link to={"/"}><button className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'><span>Návrat</span></button></Link>
+          <Link to={"/"}>
+            <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
+              <span>Návrat</span>
+            </button>
+          </Link>
         </div>
       </div>
       <Footer />

@@ -11,12 +11,17 @@ export default function ModelCreateForm() {
     bodyType: "",
     colors: [],
     engines: [],
-    extras: []
+    extras: [],
   });
 
   const [newColor, setNewColor] = useState({ name: "", price: "", rims: [] });
   const [newRim, setNewRim] = useState({ name: "", price: "", image: "" });
-  const [newEngine, setNewEngine] = useState({ name: "", price: "", power: "", emissions: ""});
+  const [newEngine, setNewEngine] = useState({
+    name: "",
+    price: "",
+    power: "",
+    emissions: "",
+  });
   const [newExtra, setNewExtra] = useState({ name: "", price: "", image: "" });
   const navigate = useNavigate();
 
@@ -52,7 +57,7 @@ export default function ModelCreateForm() {
 
   const addEngine = () => {
     setFormData({ ...formData, engines: [...formData.engines, newEngine] });
-    setNewEngine({ name: "", price: "", power: "", emissions: ""});
+    setNewEngine({ name: "", price: "", power: "", emissions: "" });
   };
 
   const addExtra = () => {
@@ -72,55 +77,299 @@ export default function ModelCreateForm() {
 
   return (
     <>
-    <Header />
-    <div className="flex justify-center flex-col items-center min-h-screen mt-20 bg-yellow-100 p-5">
-    <div className="max-w-4xl mx-auto p-8 bg-white shadow-lg rounded-xl">
+      <Header />
+      <div className="flex justify-center flex-col items-center min-h-screen mt-20 bg-yellow-100 p-5">
+        <div className="max-w-6xl w-full mx-auto p-8 bg-white shadow-lg rounded-xl">
+          <h1 className="text-3xl font-bold mb-8 text-center">
+            Vytvořit model pro konfigurátor
+          </h1>
 
-      <h1 className="text-2xl font-bold mb-6 text-center">Vytvořit model pro konfigurátor</h1>
+          <form onSubmit={handlePost} className="space-y-8">
+            <div className="grid grid-cols-3 gap-4">
+              <input
+                className="p-2 border rounded col-span-1"
+                type="text"
+                name="name"
+                placeholder="Název modelu"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+              <input
+                className="p-2 border rounded col-span-1"
+                type="number"
+                name="basePrice"
+                placeholder="Základní cena"
+                value={formData.basePrice}
+                onChange={handleChange}
+                required
+              />
+              <input
+                className="p-2 border rounded col-span-1"
+                type="text"
+                name="bodyType"
+                placeholder="Typ karoserie"
+                value={formData.bodyType}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-      <form onSubmit={handlePost} className="space-y-6">
-        <input className="block w-full p-2 border rounded" type="text" name="name" placeholder="Název modelu" value={formData.name} onChange={handleChange} required />
-        <input className="block w-full p-2 border rounded" type="number" name="basePrice" placeholder="Základní cena" value={formData.basePrice} onChange={handleChange} required />
-        <input className="block w-full p-2 border rounded" type="text" name="bodyType" placeholder="Typ karoserie" value={formData.bodyType} onChange={handleChange} required />
-        
-        <div>
-          <h3 className="font-semibold">Přidat Barvu</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <input className="p-2 border rounded" type="text" name="name" placeholder="Color Name" value={newColor.name} onChange={handleColorChange} />
-            <input className="p-2 border rounded" type="number" name="price" placeholder="Color Price" value={newColor.price} onChange={handleColorChange} />
-          </div>
-          <button type="button" onClick={addColor}  className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'>Potvrdit barvu</button>
+            <div className="bg-yellow-50 p-4 rounded-xl shadow">
+              <h2 className="text-xl font-bold mb-4">Přidat Barvu</h2>
+              <div className="grid grid-cols-2 gap-4">
+                <input
+                  className="p-2 border rounded"
+                  type="text"
+                  name="name"
+                  placeholder="Color Name"
+                  value={newColor.name}
+                  onChange={handleColorChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="number"
+                  name="price"
+                  placeholder="Color Price"
+                  value={newColor.price}
+                  onChange={handleColorChange}
+                />
+              </div>
+              <div className="mt-4">
+                <h4 className="font-semibold">Disky pro tuto barvu</h4>
+                <div className="grid grid-cols-3 gap-4 mt-2">
+                  <input
+                    className="p-2 border rounded"
+                    type="text"
+                    name="name"
+                    placeholder="Rim Name"
+                    value={newRim.name}
+                    onChange={handleRimChange}
+                  />
+                  <input
+                    className="p-2 border rounded"
+                    type="number"
+                    name="price"
+                    placeholder="Rim Price"
+                    value={newRim.price}
+                    onChange={handleRimChange}
+                  />
+                  <input
+                    className="p-2 border rounded"
+                    type="text"
+                    name="image"
+                    placeholder="Rim Image URL"
+                    value={newRim.image}
+                    onChange={handleRimChange}
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={addRim}
+                  className="px-4 py-2 mt-4 bg-black text-yellow-300 font-semibold rounded hover:bg-yellow-300 hover:text-black transition"
+                >
+                  Přidat disk
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={addColor}
+                className="px-6 py-2 mt-6 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition"
+              >
+                Potvrdit barvu
+              </button>
+
+              {formData.colors.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-2">
+                    Přidané barvy a jejich kola
+                  </h4>
+                  <table className="w-full table-auto border">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="border px-2 py-1">Barva</th>
+                        <th className="border px-2 py-1">Cena</th>
+                        <th className="border px-2 py-1">Disky</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formData.colors.map((color, index) => (
+                        <tr key={index}>
+                          <td className="border px-2 py-1">{color.name}</td>
+                          <td className="border px-2 py-1">{color.price}</td>
+                          <td className="border px-2 py-1">
+                            <ul>
+                              {color.rims.map((rim, rimIndex) => (
+                                <li key={rimIndex}>
+                                  {rim.name} - {rim.price} Kč
+                                </li>
+                              ))}
+                            </ul>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-xl shadow">
+              <h2 className="text-xl font-bold mb-4">Přidat Motorizaci</h2>
+              <div className="grid grid-cols-4 gap-4">
+                <input
+                  className="p-2 border rounded"
+                  type="text"
+                  name="name"
+                  placeholder="Název"
+                  value={newEngine.name}
+                  onChange={handleEngineChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="number"
+                  name="power"
+                  placeholder="Výkon"
+                  value={newEngine.power}
+                  onChange={handleEngineChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="number"
+                  name="emissions"
+                  placeholder="Emise"
+                  value={newEngine.emissions}
+                  onChange={handleEngineChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="number"
+                  name="price"
+                  placeholder="Cena"
+                  value={newEngine.price}
+                  onChange={handleEngineChange}
+                />
+              </div>
+              <button
+                type="button"
+                className="px-6 py-2 mt-6 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition"
+                onClick={addEngine}
+              >
+                Potvrdit motorizaci
+              </button>
+              {formData.engines.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-2">Přidané motorizace</h4>
+                  <table className="w-full table-auto border">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="border px-2 py-1">Název</th>
+                        <th className="border px-2 py-1">Výkon</th>
+                        <th className="border px-2 py-1">Emise</th>
+                        <th className="border px-2 py-1">Cena</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formData.engines.map((engine, index) => (
+                        <tr key={index}>
+                          <td className="border px-2 py-1">{engine.name}</td>
+                          <td className="border px-2 py-1">
+                            {engine.power} kW
+                          </td>
+                          <td className="border px-2 py-1">
+                            {engine.emissions} g/km
+                          </td>
+                          <td className="border px-2 py-1">
+                            {engine.price} Kč
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-xl shadow">
+              <h2 className="text-xl font-bold mb-4">
+                Přidat Doplňkovou výbavu
+              </h2>
+              <div className="grid grid-cols-3 gap-4">
+                <input
+                  className="p-2 border rounded"
+                  type="text"
+                  name="name"
+                  placeholder="Název"
+                  value={newExtra.name}
+                  onChange={handleExtraChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="number"
+                  name="price"
+                  placeholder="Cena"
+                  value={newExtra.price}
+                  onChange={handleExtraChange}
+                />
+                <input
+                  className="p-2 border rounded"
+                  type="text"
+                  name="image"
+                  placeholder="Obrázek URL"
+                  value={newExtra.image}
+                  onChange={handleExtraChange}
+                />
+              </div>
+              <button
+                type="button"
+                onClick={addExtra}
+                className="px-6 py-2 mt-6 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition"
+              >
+                Potvrdit výbavu
+              </button>
+              {formData.extras.length > 0 && (
+                <div className="mt-6">
+                  <h4 className="font-semibold mb-2">
+                    Přidaná doplňková výbava
+                  </h4>
+                  <table className="w-full table-auto border">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="border px-2 py-1">Název</th>
+                        <th className="border px-2 py-1">Cena</th>
+                        <th className="border px-2 py-1">Obrázek</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {formData.extras.map((extra, index) => (
+                        <tr key={index}>
+                          <td className="border px-2 py-1">{extra.name}</td>
+                          <td className="border px-2 py-1">{extra.price} Kč</td>
+                          <td className="border px-2 py-1">{extra.image}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-500"
+            >
+              Vytvořit model
+            </button>
+
+            <Link to="/">
+              <div className="w-full text-yellow-300 bg-black text-center py-3 rounded hover:bg-yellow-300 hover:text-black transition">
+                Zpět na hlavní stránku
+              </div>
+            </Link>
+          </form>
         </div>
-
-        <div>
-          <h4 className="font-semibold">Přidat Disky (k aktuální barvě)</h4>
-          <div className="grid grid-cols-3 gap-4">
-            <input className="p-2 border rounded" type="text" name="name" placeholder="Rim Name" value={newRim.name} onChange={handleRimChange} />
-            <input className="p-2 border rounded" type="number" name="price" placeholder="Rim Price" value={newRim.price} onChange={handleRimChange} />
-            <input className="p-2 border rounded" type="text" name="image" placeholder="Rim Image URL" value={newRim.image} onChange={handleRimChange} />
-          </div>
-          <button type="button" onClick={addRim}  className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'>Potvrdit disky</button>
-        </div>
-
-        <h3>Přidat Motorizace</h3>
-        <input className="p-2 border rounded" type="text" name="name" placeholder="Název" value={newEngine.name} onChange={handleEngineChange} />
-        <input className="p-2 border rounded" type="number" name="power" placeholder="Výkon" value={newEngine.power} onChange={handleEngineChange} />
-        <input className="p-2 border rounded" type="number" name="emissions" placeholder="Emise" value={newEngine.emissions} onChange={handleEngineChange} />
-        <input className="p-2 border rounded" type="number" name="price" placeholder="Cena motorizace" value={newEngine.price} onChange={handleEngineChange} />
-        <button type="button" className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition' onClick={addEngine}>Potvrdit motorizaci</button>
-
-        <h3>Přidat Doplňkovou výbavu</h3>
-        <input className="p-2 border rounded" type="text" name="name" placeholder="Extra Name" value={newExtra.name} onChange={handleExtraChange} />
-        <input className="p-2 border rounded" type="number" name="price" placeholder="Extra Price" value={newExtra.price} onChange={handleExtraChange} />
-        <input className="p-2 border rounded" type="text" name="image" placeholder="Extra Image URL" value={newExtra.image} onChange={handleExtraChange} />
-        <button type="button" onClick={addExtra} className='px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition'>Potvrdit výbavu</button>
-
-        <button type="submit" className="w-full bg-yellow-300 text-black py-3 rounded">Create Model</button>
-      </form>
-      <Link to="/"><div className="w-full text-yellow-300 bg-black text-black py-3 rounded text-center mt-3">Go back</div></Link>
-    </div>
-    </div>
-    <Footer />
+      </div>
+      <Footer />
     </>
   );
 }

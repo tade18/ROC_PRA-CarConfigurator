@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes , Route , BrowserRouter } from 'react-router-dom';
+import { AuthProvider } from './Context/AuthContext';
 import Home from './Home/Home';
 import Configurator from './Configurator/Configurator';
 import Contact from './Contact/Contact';
@@ -8,14 +9,16 @@ import ModelUpdateForm from "./ModelUpdateForm/ModelUpdateForm";
 import ModelView from "./ModelView/ModelView";
 import ModelList from "./ModelList/ModelList";
 import CreatedModel from "./ModelCreateForm/CreatedModel";
-import LoginForm from './LoginForm/LoginForm';
 import AdminPage from './AdminPage/AdminPage';
 import Error from './Error/Error';
 import UserModelList from './UserModelList/UserModelList';
+import Login from './Login/Login';
+import PrivateRoute from '../components/PrivateRoute/PrivateRoute';
 
 export default function AppRoutes() {
   return (
     <>
+      <AuthProvider>
         <BrowserRouter>
             <Routes>
                 <Route path='/' element={<Home />}/>
@@ -27,11 +30,12 @@ export default function AppRoutes() {
                 <Route path="/adminmodels" element={<ModelList />} />
                 <Route path="/models" element={<UserModelList />} />
                 <Route path="/createdmodel/:id" element={<CreatedModel />} />
-                <Route path="/loginform" element={<LoginForm />} />
+                <Route path="/login" element={<Login />} />
                 <Route path='/adminpage' element={<AdminPage />}/>
                 <Route path='/*' element={<Error />}/>
             </Routes>
         </BrowserRouter>
+      </AuthProvider>
     </>
   )
 }
