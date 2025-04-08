@@ -26,12 +26,13 @@ export default function Configurator() {
         const fetchedModel = response.payload;
         const defaultColor = fetchedModel.colors[0];
         const defaultRim = defaultColor.rims[0];
+        const defaultEngine = fetchedModel.engines[0];
 
         setModel(fetchedModel);
         setSelected({
           color: defaultColor,
           rim: defaultRim,
-          engine: null,
+          engine: defaultEngine,
           extras: [],
           totalPrice: parseInt(defaultColor.price) + parseInt(defaultRim.price),
         });

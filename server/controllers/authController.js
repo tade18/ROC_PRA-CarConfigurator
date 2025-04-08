@@ -3,19 +3,25 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/admin");
 
 exports.login = async (req, res) => {
-  const { adminId, password } = req.body;
 
   try {
-    const admin = await Admin.findOne({ adminId });
-    if (!admin) return res.status(401).json({ message: "Neplatné přihlašovací údaje" });
+    console.log("Přijatá data:", req.body);
+    const admin = await Admin.findOne({ adminID: req.body.adminID });
+    if (!admin) {
+      console.log("Admin nenalezen");
+      return res.status(401).json({ message: "Neplatné přihlašovací údaje" });
+    }
 
-    const validPassword = await bcrypt.compare(password, admin.password);
-    if (!validPassword) return res.status(401).json({ message: "Neplatné heslo" });
+    const match = await bcrypt.compare(req.body.password, admin.password);
+    console.log("Porovnání hesel:", match);
+    if (!match) {
+      return res.status(401).json({ message: "Neplatné přihlašovací údaje" });
+    }
 
-    const token = jwt.sign({ adminId: admin.adminId }, process.env.JWT_SECRET, { expiresIn: "2h" });
+    res.status(200).json({ message: "Přihlášení úspěšné" });
 
-    res.json({ token });
   } catch (error) {
-    res.status(500).json({ message: "Chyba serveru" });
+    console.error("Chyba při přihlášení:", error);
+    res.status(500).json({ message: "Interní chyba serveru" });
   }
 };

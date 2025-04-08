@@ -24,14 +24,14 @@ export default function AppRoutes() {
                 <Route path='/' element={<Home />}/>
                 <Route path='/configurator/:id' element={<Configurator />} />
                 <Route path='/contact' element={<Contact />} />
-                <Route path="/createmodel" element={<ModelCreateForm />} />
+                <Route path="/createmodel" element={<PrivateRoute><ModelCreateForm /></PrivateRoute>} />
                 <Route path="/updatemodel/:id" element={<ModelUpdateForm />} />
                 <Route path="/model/:id" element={<ModelView />} />
                 <Route path="/adminmodels" element={<ModelList />} />
                 <Route path="/models" element={<UserModelList />} />
                 <Route path="/createdmodel/:id" element={<CreatedModel />} />
                 <Route path="/login" element={<Login />} />
-                <Route path='/adminpage' element={<AdminPage />}/>
+                <Route path='/adminpage' element={<PrivateRoute><AdminPage /></PrivateRoute>}/>
                 <Route path='/*' element={<Error />}/>
             </Routes>
         </BrowserRouter>

@@ -23,6 +23,7 @@ export default function Login() {
     if (response.ok) {
       login(data.token);
       navigate("/adminpage");
+      alert("Přihlášení bylo úspěšné!");
     } else {
       alert("Chyba při přihlášení: " + data.message);
     }
