@@ -1,4 +1,3 @@
-// src/components/ModelCard.jsx
 import React from "react";
 import ConfiguratorLink from "../../pages/UserModelList/ConfiguratorLink";
 

@@ -58,9 +58,10 @@ export default function ModelList() {
   return (
     <>
       <Header />
-      <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-        <div className="mx-auto md:w-1/2 p-8 bg-white shadow-lg rounded-xl w-full">
-          <h1 className="text-3xl mb-5">Modely</h1>
+      <div className="bg-white min-h-screen py-16 px-4 mt-12">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl text-gray-900 mb-12 ml-5">Nabídka modelů</h1>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {models.map((model) => {
               const image =
@@ -96,11 +97,13 @@ export default function ModelList() {
             })}
           </div>
 
-          <Link to={"/adminpage"}>
-            <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
-              <span>Návrat</span>
-            </button>
-          </Link>
+          <div className="mt-16">
+            <Link to={"/"}>
+              <button className="px-6 py-3 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition duration-300">
+                Návrat
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
       <Footer />

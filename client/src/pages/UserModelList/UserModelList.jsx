@@ -22,14 +22,6 @@ export default function UserModelList() {
     load();
   }, []);
 
-  const handleDelete = async (id) => {
-    const confirmDelete = window.confirm("Opravdu chcete smazat tento model?");
-    if (confirmDelete) {
-      await deleteModel(id);
-      load();
-    }
-  };
-
   if (isLoaded === null) {
     return (
       <>
@@ -66,7 +58,7 @@ export default function UserModelList() {
             {models.map((model) => {
               const image =
                 model.colors?.[0]?.rims?.[0]?.image ||
-                "/images/placeholder.png";
+                "/thumbnails/imgErr.jpg";
 
               return (
                 <ModelCard
