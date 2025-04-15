@@ -2,9 +2,17 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { Link } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
 
 export default function AdminPage() {
   const isAdmin = !!localStorage.getItem("token");
+  const { logout } = useAuth();
+
+  const handleLogout = () =>{
+    logout();
+    alert("Správce byl úspěšně odhlášen");
+  }
+  
   if (isAdmin) {
     return (
       <>
@@ -23,6 +31,12 @@ export default function AdminPage() {
                 <h3>Správa konfigurací</h3>
               </div>
             </Link>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-800"
+            >
+              Odhlásit se
+            </button>
 
             <Link to={"/"}>
               <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">

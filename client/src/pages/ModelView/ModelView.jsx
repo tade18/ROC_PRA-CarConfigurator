@@ -58,11 +58,6 @@ export default function ModelView() {
                 Upravit
               </button>
             </Link>
-            <Link to={`/adminmodels`}>
-              <button className="px-6 py-2 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
-                Návrat
-              </button>
-            </Link>
           </div>
 
           {/* Barvy */}
@@ -143,6 +138,11 @@ export default function ModelView() {
               </tbody>
             </table>
           </section>
+        <Link to={`/adminmodels`}>
+          <button className="px-6 py-2 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
+            Návrat
+          </button>
+        </Link>
         </div>
       </div>
       <Footer />
