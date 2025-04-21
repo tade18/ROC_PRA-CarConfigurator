@@ -1,19 +1,42 @@
 import React from "react";
-import ConfiguratorLink from "../../pages/UserModelList/ConfiguratorLink";
 
-export default function ModelCard({ id, name, image, basePrice }) {
+export default function ModelCard({ model, index, configure}) {
+  const isEven = index % 2 === 0;
+  const bgColor = isEven ? "bg-yellow-300" : "bg-white";
+
+  const image =
+    model.colors?.[0]?.rims?.[0]?.image || "/thumbnails/imgErr.jpg";
+
   return (
     <div
-      key={id}
-      className="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col items-center p-5 border border-gray-200"
+      className={`flex flex-col md:flex-row md:items-center p-4 gap-4 ${bgColor}`}
     >
       <img
         src={image}
-        alt={name}
-        className="w-full h-48 object-cover rounded-xl mb-4"
+        alt={model.name}
+        className="w-full md:w-48 h-auto rounded-lg object-cover"
       />
 
-      <ConfiguratorLink _id={id} name={name} basePrice={basePrice}></ConfiguratorLink>
+      <div className="flex flex-col md:flex-row md:items-center justify-between flex-1 gap-4">
+        <div className="flex-1">
+          <h2 className="text-xl font-bold">{model.name}</h2>
+          <p className="text-lg text-gray-600 font-semibold">
+            {model.bodyType}
+          </p>
+          <p className="text-l text-black">
+            Počáteční cena: <b>{model.basePrice} Kč</b>
+          </p>
+        </div>
+
+        <div className="flex gap-3 self-start md:self-auto">
+          <button
+            onClick={() => configure(model._id)}
+            className="bg-yellow-500 text-white px-4 py-2 font-bold rounded hover:bg-yellow-600"
+          >
+            Konfigurovat
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

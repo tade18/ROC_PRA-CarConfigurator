@@ -117,8 +117,6 @@ export default function Configurator() {
       <Header />
       <div className="bg-yellow-100 min-h-screen p-8 mt-20">
         <div className="mx-auto md:w-1/2 p-8 bg-white shadow-lg rounded-xl w-full">
-          <h1 className="text-4xl text-center mb-6">{model.name}</h1>
-
           {/* Obrázek auta */}
           <div className="flex justify-center mb-10 w-full">
             <img
@@ -129,7 +127,8 @@ export default function Configurator() {
               className="w-[600px] h-auto rounded shadow"
             />
           </div>
-
+          <h1 className="text-4xl">{model.name}</h1>
+          <div className="text-2xl text-gray-500 mb-5">{model.bodyType}</div>
           <div className="space-y-2 max-w-4xl mx-auto">
             {[
               { label: "Zvolte barvu", content: "color" },

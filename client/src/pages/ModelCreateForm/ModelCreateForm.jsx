@@ -122,7 +122,7 @@ export default function ModelCreateForm() {
                   className="p-2 border rounded"
                   type="text"
                   name="name"
-                  placeholder="Color Name"
+                  placeholder="Název lakování"
                   value={newColor.name}
                   onChange={handleColorChange}
                 />
@@ -130,7 +130,7 @@ export default function ModelCreateForm() {
                   className="p-2 border rounded"
                   type="number"
                   name="price"
-                  placeholder="Color Price"
+                  placeholder="Cena lakování"
                   value={newColor.price}
                   onChange={handleColorChange}
                 />
@@ -142,7 +142,7 @@ export default function ModelCreateForm() {
                     className="p-2 border rounded"
                     type="text"
                     name="name"
-                    placeholder="Rim Name"
+                    placeholder="Název disků"
                     value={newRim.name}
                     onChange={handleRimChange}
                   />
@@ -150,7 +150,7 @@ export default function ModelCreateForm() {
                     className="p-2 border rounded"
                     type="number"
                     name="price"
-                    placeholder="Rim Price"
+                    placeholder="Cena disků"
                     value={newRim.price}
                     onChange={handleRimChange}
                   />
@@ -158,7 +158,7 @@ export default function ModelCreateForm() {
                     className="p-2 border rounded"
                     type="text"
                     name="image"
-                    placeholder="Rim Image URL"
+                    placeholder="URL obrázku disků k barvě"
                     value={newRim.image}
                     onChange={handleRimChange}
                   />
@@ -166,7 +166,7 @@ export default function ModelCreateForm() {
                 <button
                   type="button"
                   onClick={addRim}
-                  className="px-4 py-2 mt-4 bg-black text-yellow-300 font-semibold rounded hover:bg-yellow-300 hover:text-black transition"
+                  className="px-4 py-2 mt-4 bg-black text-yellow-300 font-semibold rounded border-2 border-black hover:bg-yellow-300 hover:text-black transition"
                 >
                   Přidat disk
                 </button>
@@ -356,16 +356,10 @@ export default function ModelCreateForm() {
 
             <button
               type="submit"
-              className="w-full bg-yellow-400 text-black font-bold py-3 rounded hover:bg-yellow-500"
+              className="w-full bg-green-400 text-black font-bold py-3 rounded hover:bg-green-500"
             >
               Vytvořit model
             </button>
-
-            <Link to="/">
-              <div className="w-full text-yellow-300 bg-black text-center py-3 rounded hover:bg-yellow-300 hover:text-black transition">
-                Zpět na hlavní stránku
-              </div>
-            </Link>
           </form>
         </div>
       </div>

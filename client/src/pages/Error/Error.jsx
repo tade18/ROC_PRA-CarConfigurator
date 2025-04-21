@@ -7,7 +7,7 @@ export default function Error() {
     <>
     <Header />
         <div className='flex flex-col justify-center items-center min-h-screen bg-yellow-100'>
-            <h1 className='text-4xl font-bold'>Nastala chyba :-/</h1>
+            <h1 className='text-4xl font-bold'>Jejda! Tato stránka ještě neexistuje!</h1>
         </div>
     <Footer />
     </>

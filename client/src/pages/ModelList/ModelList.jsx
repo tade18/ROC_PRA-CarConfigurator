@@ -1,13 +1,14 @@
-import { Link } from "react-router-dom";
-import ModelLink from "./ModelLink";
 import { useState, useEffect } from "react";
 import { getAllModels, deleteModel } from "../../models/model";
+import AdminModelCard from "../../components/AdminModelCard/AdminModelCard";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function ModelList() {
-  const [models, setModels] = useState();
+  const [models, setModels] = useState([]);
   const [isLoaded, setLoaded] = useState(false);
+  const navigate = useNavigate();
 
   const load = async () => {
     const data = await getAllModels();
@@ -22,6 +23,10 @@ export default function ModelList() {
     load();
   }, []);
 
+  const handleEdit = (id) => {
+    navigate(`/updatemodel/${id}`);
+  };
+
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Opravdu chcete smazat tento model?");
     if (confirmDelete) {
@@ -30,21 +35,8 @@ export default function ModelList() {
     }
   };
 
-  if (isLoaded === null) {
-    return (
-      <>
-        <Header />
-        <div className="flex justify-center flex-col items-center min-h-screen bg-yellow-100">
-          <div className="text-4xl">Modely nenalezeny</div>
-          <Link to={"/createmodel"}>
-            <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
-              <span>Vytvořit model</span>
-            </button>
-          </Link>
-        </div>
-        <Footer />
-      </>
-    );
+  const viewLink = (id) => {
+    navigate(`/model/${id}`);
   }
 
   if (!isLoaded) {
@@ -56,57 +48,26 @@ export default function ModelList() {
   }
 
   return (
-    <>
-      <Header />
-      <div className="bg-white min-h-screen py-16 px-4 mt-12">
+    <div>
+      <div className="bg-yellow-100 min-h-screen p-8 mt-20">
+        <Header />
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-4xl text-gray-900 mb-12 ml-5">Nabídka modelů</h1>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {models.map((model) => {
-              const image =
-                model.colors?.[0]?.rims?.[0]?.image ||
-                "/images/placeholder.png";
-
-              return (
-                <div
-                  key={model._id}
-                  className="bg-white rounded-xl shadow p-4 flex flex-col items-center transition hover:shadow-lg"
-                >
-                  <img
-                    src={image}
-                    alt={model.name}
-                    className="w-full h-48 object-cover rounded mb-4"
-                  />
-                  <h2 className="text-xl font-bold mb-2">{model.name}</h2>
-                  <div className="flex gap-2 mt-auto">
-                    <ModelLink {...model}>
-                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                        Detail
-                      </button>
-                    </ModelLink>
-                    <button
-                      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                      onClick={() => handleDelete(model._id)}
-                    >
-                      Smazat
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-16">
-            <Link to={"/"}>
-              <button className="px-6 py-3 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition duration-300">
-                Návrat
-              </button>
-            </Link>
-          </div>
+        <h1 className="text-4xl text-gray-900 mb-12 ml-5">Nabídka modelů</h1>
+        <div className="space-y-4 mt-4">
+          {models.map((model, index) => (
+            <AdminModelCard
+              key={model._id}
+              model={model}
+              index={index}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+              onView={viewLink}
+            />
+          ))}
         </div>
       </div>
+      </div>
       <Footer />
-    </>
+    </div>
   );
 }

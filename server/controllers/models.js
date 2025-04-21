@@ -55,18 +55,24 @@ exports.getModelById = async (req, res) => {
 //controller pro upravení modelu
 exports.updateModel = async (req, res) => {
   try {
-    const data = new Model({
+    const data = {
       name: req.body.name,
       basePrice: req.body.basePrice,
       bodyType: req.body.bodyType,
       colors: req.body.colors || [],
       engines: req.body.engines || [],
       extras: req.body.extras || []
-    });
-    const result = await Model.findByIdAndUpdate(req.params.id, data);
-    if (result) res.status(200).send({msg:"Model successfully updated", payload: result})
-    res.status(500).send({msg:"Model was not updated"})
+    };
+
+    const result = await Model.findByIdAndUpdate(req.params.id, data, { new: true, runValidators: true });
+
+    if (result) {
+      return res.status(200).send({ msg: "Model successfully updated", payload: result });
+    }
+
+    res.status(404).send({ msg: "Model not found" });
   } catch (error) {
+    console.error("Update error:", error); // přidej pro ladění
     res.status(500).send(error);
   }
 };

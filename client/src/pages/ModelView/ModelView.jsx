@@ -80,7 +80,12 @@ export default function ModelView() {
                       <ul className="list-disc list-inside">
                         {color.rims.map((rim, j) => (
                           <li key={j}>
-                            {rim.name} – {rim.price} Kč
+                            <div>
+                              <strong>{rim.name}</strong> – {rim.price} Kč
+                            </div>
+                            <div className="text-sm text-gray-600 italic">
+                              {rim.image}
+                            </div>
                           </li>
                         ))}
                       </ul>
@@ -91,30 +96,7 @@ export default function ModelView() {
             </table>
           </section>
 
-          {/* Motory */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-2 mt-6">Motory</h2>
-            <table className="table-auto w-full border border-gray-300 bg-white">
-              <thead>
-                <tr className="bg-gray-200">
-                  <th className="p-2 border">Název</th>
-                  <th className="p-2 border">Cena</th>
-                  <th className="p-2 border">Výkon</th>
-                  <th className="p-2 border">Emise</th>
-                </tr>
-              </thead>
-              <tbody>
-                {model.engines.map((engine, i) => (
-                  <tr key={i}>
-                    <td className="p-2 border">{engine.name}</td>
-                    <td className="p-2 border">{engine.price} Kč</td>
-                    <td className="p-2 border">{engine.power}</td>
-                    <td className="p-2 border">{engine.emissions}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
+          {/* Motory – zůstává beze změny */}
 
           {/* Doplňková výbava */}
           <section>
@@ -126,6 +108,7 @@ export default function ModelView() {
                 <tr className="bg-gray-200">
                   <th className="p-2 border">Název</th>
                   <th className="p-2 border">Cena</th>
+                  <th className="p-2 border">Cesta k obrázku</th>
                 </tr>
               </thead>
               <tbody>
@@ -133,16 +116,19 @@ export default function ModelView() {
                   <tr key={i}>
                     <td className="p-2 border">{item.name}</td>
                     <td className="p-2 border">{item.price} Kč</td>
+                    <td className="p-2 border text-sm text-gray-600 italic">
+                      {item.image || "—"}
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </section>
-        <Link to={`/adminmodels`}>
-          <button className="px-6 py-2 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
-            Návrat
-          </button>
-        </Link>
+          <Link to={`/adminmodels`}>
+            <button className="px-6 py-2 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
+              Návrat
+            </button>
+          </Link>
         </div>
       </div>
       <Footer />

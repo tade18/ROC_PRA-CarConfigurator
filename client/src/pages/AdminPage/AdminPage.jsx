@@ -37,12 +37,6 @@ export default function AdminPage() {
             >
               Odhlásit se
             </button>
-
-            <Link to={"/"}>
-              <button className="px-6 py-2 mt-10 mr-10 bg-black text-yellow-300 font-bold rounded-md border-2 border-black hover:bg-yellow-300 hover:text-black transition">
-                <span>Návrat</span>
-              </button>
-            </Link>
           </div>
         </div>
         <Footer />
