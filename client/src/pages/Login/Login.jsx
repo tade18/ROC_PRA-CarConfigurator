@@ -22,7 +22,7 @@ export default function Login() {
     const data = await response.json();
     if (response.ok) {
       login(data.token);
-      alert("Přihlášení bylo úspěšné! Pokud zůstanete na stránce zmáčkněte f5 a následně tlačítko Admin!");
+      alert("Přihlášení bylo úspěšné!");
       navigate("/adminpage");
     } else {
       alert("Chyba při přihlášení: " + data.message);

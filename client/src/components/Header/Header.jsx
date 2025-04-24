@@ -6,7 +6,7 @@ import "./Header.css";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  //zjistuje jestli je prihlaseny spravce
   const isAdmin = !!localStorage.getItem("token");
 
   useEffect(() => {

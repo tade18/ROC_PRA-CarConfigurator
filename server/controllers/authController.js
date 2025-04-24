@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../models/admin");
 
 exports.login = async (req, res) => {
-
   try {
     console.log("Přijatá data:", req.body);
     const admin = await Admin.findOne({ adminID: req.body.adminID });
@@ -18,7 +17,18 @@ exports.login = async (req, res) => {
       return res.status(401).json({ message: "Neplatné přihlašovací údaje" });
     }
 
-    res.status(200).json({ message: "Přihlášení úspěšné" });
+    // Generování jwt
+    // token je platný 1 hodinu
+    const token = jwt.sign(
+      { adminId: admin._id },
+      process.env.JWT_SECRET || "tajnyklic",
+      { expiresIn: "1h" }
+    );
+
+    res.status(200).json({ 
+      message: "Přihlášení úspěšné", 
+      token 
+    });
 
   } catch (error) {
     console.error("Chyba při přihlášení:", error);

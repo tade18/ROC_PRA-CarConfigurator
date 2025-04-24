@@ -1,11 +1,11 @@
 import React from "react";
-
-export default function ModelCard({ model, index, configure}) {
+export default function ModelCard({ model, index, configure }) {
   const isEven = index % 2 === 0;
+  //u karet se strida zluta a bila barva pozadi
   const bgColor = isEven ? "bg-yellow-300" : "bg-white";
 
-  const image =
-    model.colors?.[0]?.rims?.[0]?.image || "/thumbnails/imgErr.jpg";
+  //pokud nastane chyba pri zobrazeni obrazku modelu, objevi se tento obrázek
+  const image = model.colors?.[0]?.rims?.[0]?.image || "/thumbnails/imgErr.jpg";
 
   return (
     <div
