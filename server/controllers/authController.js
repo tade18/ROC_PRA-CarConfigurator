@@ -5,7 +5,10 @@ const Admin = require("../models/admin");
 exports.login = async (req, res) => {
   try {
     console.log("Přijatá data:", req.body);
-    const admin = await Admin.findOne({ adminID: req.body.adminID });
+    const admins = await Admin.find();
+    const admin = await Admin.findOne({ adminId: req.body.adminId });
+    console.log({admin});
+    console.log({admins});
     if (!admin) {
       console.log("Admin nenalezen");
       return res.status(401).json({ message: "Neplatné přihlašovací údaje" });

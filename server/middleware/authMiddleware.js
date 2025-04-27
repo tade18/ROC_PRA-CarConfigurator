@@ -1,8 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const token = req.header("Authorization");
-  if (!token) return res.status(403).json({ message: "Přístup odepřen" });
+  const authHeader = req.header("Authorization");
+  const token = authHeader.split(" ")[0];
+  if (!authHeader || !authHeader.startsWith("Bearer ")){
+    return res.status(403).json({ message: "Přístup odepřen" });
+  }
+     
 
   try {
     const verified = jwt.verify(token, "tajnyKlic");
