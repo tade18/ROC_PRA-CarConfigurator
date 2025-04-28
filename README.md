@@ -17,3 +17,8 @@
 </pre>
 <p>4. otevřete odkaz v konzoli nebo zadejte do prohlížeče URL</p>
 <pre>http://localhost:5173/</pre>
+<p>do složky server je nutné přidat .env soubor a do něj zadat</p>
+<pre>
+  MONGO_URL = "váš connection string na MongoDB databázi"
+  JWT_SECRET = "náhodný řetězec"
+</pre>
