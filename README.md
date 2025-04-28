@@ -15,3 +15,5 @@
   npm i
   npm run dev
 </pre>
+<p>4. otevřete odkaz v konzoli nebo zadejte do prohlížeče URL</p>
+<pre>http://localhost:5173/</pre>
