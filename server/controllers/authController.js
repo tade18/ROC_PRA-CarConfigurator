@@ -19,15 +19,12 @@ exports.login = async (req, res) => {
     if (!match) {
       return res.status(401).json({ message: "Neplatné přihlašovací údaje" });
     }
-
     // Generování jwt
-    // token je platný 1 hodinu
     const token = jwt.sign(
       { adminId: admin._id },
-      process.env.JWT_SECRET || "tajnyklic",
+      process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
-
     res.status(200).json({ 
       message: "Přihlášení úspěšné", 
       token 
